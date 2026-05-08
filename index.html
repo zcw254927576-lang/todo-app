@@ -113,30 +113,38 @@
   /* 优先级选择 */
   .priority-select {
     display: flex;
-    gap: 6px;
-    margin-top: 8px;
+    gap: 8px;
+    margin-top: 10px;
+    align-items: center;
   }
-  .priority-select span {
+  .priority-select > span {
     font-size: 12px;
     color: var(--text-secondary);
-    margin-right: 4px;
-    line-height: 28px;
+    margin-right: 2px;
   }
   .prio-btn {
-    padding: 4px 14px;
+    padding: 6px 16px;
     border-radius: var(--radius-sm);
-    border: 1.5px solid var(--border);
-    font-size: 12px;
+    border: 2px solid var(--border);
+    font-size: 13px;
     font-weight: 700;
     cursor: pointer;
     background: var(--card);
-    transition: all 0.15s;
+    transition: all 0.2s;
+    opacity: 0.5;
   }
   .prio-btn:active { transform: scale(0.95); }
   .prio-btn.p0 { color: #d63031; border-color: #d63031; }
   .prio-btn.p1 { color: #e17055; border-color: #e17055; }
   .prio-btn.p2 { color: #6c5ce7; border-color: #6c5ce7; }
-  .prio-btn.active { background: currentColor; color: #fff; border-color: currentColor; }
+  .prio-btn.active {
+    opacity: 1;
+    transform: scale(1.05);
+    background: currentColor;
+    color: #fff;
+    border-color: currentColor;
+    box-shadow: 0 4px 12px currentColor;
+  }
 
   /* 已完成切换 */
   .done-toggle {

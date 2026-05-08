@@ -136,7 +136,6 @@
   .prio-btn.p0 { color: #d63031; border-color: #d63031; }
   .prio-btn.p1 { color: #e17055; border-color: #e17055; }
   .prio-btn.p2 { color: #6c5ce7; border-color: #6c5ce7; }
-  .prio-btn.p3 { color: #b2bec3; border-color: #b2bec3; }
   .prio-btn.active { background: currentColor; color: #fff; border-color: currentColor; }
 
   /* 已完成切换 */
@@ -510,8 +509,7 @@
       <span>优先级</span>
       <button class="prio-btn p0" data-prio="0" onclick="selectPriority(0)">P0</button>
       <button class="prio-btn p1" data-prio="1" onclick="selectPriority(1)">P1</button>
-      <button class="prio-btn p2" data-prio="2" onclick="selectPriority(2)">P2</button>
-      <button class="prio-btn p3 active" data-prio="3" onclick="selectPriority(3)">P3</button>
+      <button class="prio-btn p2 active" data-prio="2" onclick="selectPriority(2)">P2</button>
     </div>
   </div>
 
@@ -577,7 +575,7 @@ const TAG_COLORS = [
 ];
 const DEFAULT_TAGS = ['工作', '生活', '学习'];
 
-let state = { todos: [], tags: [], filter: 'all', selectedTags: [], selectedPriority: 3, showDone: true, filterTags: [] };
+let state = { todos: [], tags: [], filter: 'all', selectedTags: [], selectedPriority: 2, showDone: true, filterTags: [] };
 
 // ========== 持久化 ==========
 function loadState() {
@@ -676,8 +674,8 @@ function selectPriority(p) {
   });
 }
 
-function getPrioLabel(p) { return ['P0','P1','P2','P3'][p] || 'P3'; }
-function getPrioColor(p) { return ['#d63031','#e17055','#6c5ce7','#b2bec3'][p] || '#b2bec3'; }
+function getPrioLabel(p) { return ['P0','P1','P2'][p] || 'P2'; }
+function getPrioColor(p) { return ['#d63031','#e17055','#6c5ce7'][p] || '#6c5ce7'; }
 
 // ========== 已完成切换 ==========
 function toggleShowDone() {
@@ -737,9 +735,9 @@ function addTodo() {
   });
   input.value = '';
   state.selectedTags = [];
-  state.selectedPriority = 3;
+  state.selectedPriority = 2;
   document.querySelectorAll('.prio-btn').forEach(b => {
-    b.classList.toggle('active', parseInt(b.dataset.prio) === 3);
+    b.classList.toggle('active', parseInt(b.dataset.prio) === 2);
   });
   saveState();
   renderAll();
@@ -826,7 +824,7 @@ function renderTodoList() {
 
   list.sort((a, b) => {
     if (a.done !== b.done) return a.done ? 1 : -1;
-    return (a.priority ?? 3) - (b.priority ?? 3);
+    return (a.priority ?? 2) - (b.priority ?? 2);
   });
 
   if (!list.length) {

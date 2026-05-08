@@ -3,28 +3,33 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<meta name="theme-color" content="#5b7fff">
+<meta name="theme-color" content="#2d3436">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="待办标签">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="WayneSpace">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon.svg">
-<title>待办标签</title>
+<title>WayneSpace</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   :root {
-    --primary: #5b7fff;
-    --primary-light: #eef1ff;
-    --danger: #ff5b5b;
-    --success: #2ecc71;
-    --bg: #f5f6fa;
-    --card: #fff;
+    --primary: #2d3436;
+    --primary-light: #f0f0f0;
+    --accent: #6c5ce7;
+    --accent-light: #a29bfe;
+    --danger: #e17055;
+    --success: #00b894;
+    --bg: #f8f9fc;
+    --card: #ffffff;
     --text: #2d3436;
     --text-secondary: #636e72;
-    --border: #e8eaed;
-    --radius: 12px;
-    --shadow: 0 2px 12px rgba(0,0,0,0.08);
+    --text-muted: #b2bec3;
+    --border: #eaecef;
+    --radius: 16px;
+    --radius-sm: 10px;
+    --shadow: 0 4px 24px rgba(0,0,0,0.06);
+    --shadow-lg: 0 8px 40px rgba(0,0,0,0.08);
   }
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -36,51 +41,53 @@
     overscroll-behavior: none;
   }
   .header {
-    background: var(--primary);
+    background: linear-gradient(135deg, #2d3436 0%, #1a1a2e 100%);
     color: #fff;
-    padding: 20px 16px 16px;
+    padding: 24px 20px 20px;
     position: sticky;
     top: 0;
     z-index: 10;
     -webkit-app-region: drag;
   }
-  .header h1 { font-size: 22px; font-weight: 600; }
-  .header .sub { font-size: 13px; opacity: 0.85; margin-top: 2px; }
-  .container { padding: 12px 16px; }
+  .header h1 { font-size: 24px; font-weight: 700; letter-spacing: 0.5px; }
+  .header .sub { font-size: 13px; opacity: 0.7; margin-top: 2px; font-weight: 300; }
+  .container { padding: 16px 20px; }
 
   /* 输入区 */
   .input-area {
     background: var(--card);
     border-radius: var(--radius);
-    padding: 12px;
+    padding: 16px;
     box-shadow: var(--shadow);
     margin-bottom: 16px;
   }
-  .input-row { display: flex; gap: 8px; }
+  .input-row { display: flex; gap: 10px; }
   .input-row input[type="text"] {
     flex: 1;
     border: 2px solid var(--border);
-    border-radius: 8px;
-    padding: 10px 12px;
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
     font-size: 15px;
     outline: none;
     transition: border-color 0.2s;
     -webkit-appearance: none;
+    background: var(--bg);
   }
-  .input-row input[type="text"]:focus { border-color: var(--primary); }
+  .input-row input[type="text"]:focus { border-color: var(--accent); }
   .input-row .add-btn {
-    width: 44px;
-    height: 44px;
+    width: 46px;
+    height: 46px;
     border: none;
-    border-radius: 8px;
-    background: var(--primary);
+    border-radius: var(--radius-sm);
+    background: var(--accent);
     color: #fff;
     font-size: 22px;
     cursor: pointer;
     flex-shrink: 0;
-    transition: opacity 0.15s;
+    transition: all 0.15s;
+    box-shadow: 0 4px 12px rgba(108,92,231,0.3);
   }
-  .input-row .add-btn:active { opacity: 0.7; }
+  .input-row .add-btn:active { transform: scale(0.95); opacity: 0.8; }
 
   /* 标签选择 */
   .tag-select {
@@ -116,20 +123,21 @@
     line-height: 28px;
   }
   .prio-btn {
-    padding: 3px 12px;
-    border-radius: 6px;
-    border: 1px solid var(--border);
+    padding: 4px 14px;
+    border-radius: var(--radius-sm);
+    border: 1.5px solid var(--border);
     font-size: 12px;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
     background: var(--card);
     transition: all 0.15s;
   }
   .prio-btn:active { transform: scale(0.95); }
-  .prio-btn.p0 { color: #e74c3c; }
-  .prio-btn.p1 { color: #e67e22; }
-  .prio-btn.p2 { color: #95a5a6; }
-  .prio-btn.active { border-color: currentColor; background: currentColor; color: #fff; }
+  .prio-btn.p0 { color: #d63031; border-color: #d63031; }
+  .prio-btn.p1 { color: #e17055; border-color: #e17055; }
+  .prio-btn.p2 { color: #6c5ce7; border-color: #6c5ce7; }
+  .prio-btn.p3 { color: #b2bec3; border-color: #b2bec3; }
+  .prio-btn.active { background: currentColor; color: #fff; border-color: currentColor; }
 
   /* 已完成切换 */
   .done-toggle {
@@ -144,8 +152,70 @@
   .done-toggle input[type="checkbox"] {
     width: 16px;
     height: 16px;
-    accent-color: var(--primary);
+    accent-color: var(--accent);
     cursor: pointer;
+  }
+
+  /* 标签筛选面板 */
+  .tag-filter {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 12px 16px;
+    box-shadow: var(--shadow);
+    margin-bottom: 12px;
+    display: none;
+  }
+  .tag-filter.show { display: block; }
+  .tag-filter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    cursor: pointer;
+  }
+  .tag-filter-header span { font-size: 13px; font-weight: 500; color: var(--text-secondary); }
+  .tag-filter-header .badge {
+    font-size: 11px;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 20px;
+    padding: 1px 8px;
+  }
+  .tag-filter-list { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag-filter-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1.5px solid var(--border);
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+    background: var(--card);
+  }
+  .tag-filter-item:active { transform: scale(0.96); }
+  .tag-filter-item.checked {
+    border-color: currentColor;
+    background: currentColor;
+    color: #fff;
+  }
+  .tag-filter-item .check-icon {
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    flex-shrink: 0;
+    transition: all 0.15s;
+  }
+  .tag-filter-item.checked .check-icon {
+    background: #fff;
+    border-color: #fff;
+    color: currentColor;
   }
 
   /* 标签管理 */
@@ -239,35 +309,37 @@
   }
 
   /* 待办列表 */
-  .todo-list { display: flex; flex-direction: column; gap: 8px; }
+  .todo-list { display: flex; flex-direction: column; gap: 10px; }
   .todo-empty {
     text-align: center;
-    padding: 60px 0;
-    color: var(--text-secondary);
+    padding: 80px 0;
+    color: var(--text-muted);
     font-size: 14px;
     line-height: 2;
   }
-  .todo-empty .big { font-size: 48px; display: block; margin-bottom: 12px; }
+  .todo-empty .big { font-size: 56px; display: block; margin-bottom: 16px; opacity: 0.6; }
   .todo-item {
     background: var(--card);
     border-radius: var(--radius);
-    padding: 14px;
+    padding: 16px;
     box-shadow: var(--shadow);
     display: flex;
-    gap: 12px;
+    gap: 14px;
     align-items: flex-start;
-    transition: opacity 0.2s;
+    transition: all 0.2s;
     animation: fadeIn 0.25s ease;
+    border: 1px solid transparent;
   }
+  .todo-item:active { transform: scale(0.99); }
   @keyframes fadeIn {
     from { opacity: 0; transform: translateY(8px); }
     to { opacity: 1; transform: translateY(0); }
   }
-  .todo-item.done { opacity: 0.55; }
-  .todo-item.done .todo-text { text-decoration: line-through; color: var(--text-secondary); }
+  .todo-item.done { opacity: 0.5; }
+  .todo-item.done .todo-text { text-decoration: line-through; color: var(--text-muted); }
   .todo-check {
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
     border: 2px solid var(--border);
     flex-shrink: 0;
@@ -278,40 +350,42 @@
     margin-top: 1px;
     transition: all 0.15s;
     color: #fff;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: bold;
   }
   .todo-check:active { transform: scale(0.85); }
   .todo-check.checked {
     background: var(--success);
     border-color: var(--success);
+    box-shadow: 0 2px 8px rgba(0,184,148,0.3);
   }
   .todo-body { flex: 1; min-width: 0; }
-  .todo-text { font-size: 15px; line-height: 1.4; word-break: break-word; }
-  .todo-meta { display: flex; align-items: center; gap: 6px; margin-top: 6px; flex-wrap: wrap; }
+  .todo-text { font-size: 15px; line-height: 1.5; word-break: break-word; }
+  .todo-meta { display: flex; align-items: center; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
   .todo-tag {
-    padding: 2px 8px;
-    border-radius: 10px;
+    padding: 3px 10px;
+    border-radius: 12px;
     font-size: 11px;
     font-weight: 500;
   }
-  .todo-date { font-size: 11px; color: var(--text-secondary); }
+  .todo-date { font-size: 11px; color: var(--text-muted); }
   .todo-del {
-    width: 28px;
-    height: 28px;
+    width: 30px;
+    height: 30px;
     border: none;
     background: none;
-    color: #ccc;
-    font-size: 18px;
+    color: var(--text-muted);
+    font-size: 20px;
     cursor: pointer;
     flex-shrink: 0;
-    border-radius: 6px;
+    border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.15s;
+    opacity: 0.5;
   }
-  .todo-del:active { background: #fee; color: var(--danger); }
+  .todo-del:active { background: #fdf0ef; color: var(--danger); opacity: 1; }
 
   /* 统计 */
   .stats {
@@ -398,26 +472,29 @@
   /* 深色模式 */
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg: #1a1a2e;
-      --card: #16213e;
+      --bg: #0f0f1a;
+      --card: #1a1a2e;
       --text: #e8e8e8;
       --text-secondary: #a0a0b0;
+      --text-muted: #636e72;
       --border: #2a2a4a;
-      --shadow: 0 2px 12px rgba(0,0,0,0.3);
+      --shadow: 0 4px 24px rgba(0,0,0,0.3);
     }
+    .header { background: linear-gradient(135deg, #1a1a2e 0%, #0f0f1a 100%); }
     .input-row input[type="text"],
     .tag-mgr-input input {
-      background: #1a1a2e;
+      background: #0f0f1a;
       color: #e8e8e8;
       border-color: #2a2a4a;
     }
+    .todo-item:active { border-color: #2a2a4a; }
   }
 </style>
 </head>
 <body>
 
 <div class="header">
-  <h1>待办标签</h1>
+  <h1>WayneSpace</h1>
   <div class="sub" id="todayStr"></div>
 </div>
 
@@ -433,7 +510,8 @@
       <span>优先级</span>
       <button class="prio-btn p0" data-prio="0" onclick="selectPriority(0)">P0</button>
       <button class="prio-btn p1" data-prio="1" onclick="selectPriority(1)">P1</button>
-      <button class="prio-btn p2 active" data-prio="2" onclick="selectPriority(2)">P2</button>
+      <button class="prio-btn p2" data-prio="2" onclick="selectPriority(2)">P2</button>
+      <button class="prio-btn p3 active" data-prio="3" onclick="selectPriority(3)">P3</button>
     </div>
   </div>
 
@@ -452,6 +530,16 @@
 
   <!-- 过滤 -->
   <div class="filter-bar" id="filterBar"></div>
+
+  <!-- 标签筛选面板 -->
+  <div class="tag-filter" id="tagFilter">
+    <div class="tag-filter-header">
+      <span onclick="toggleTagFilter()">🏷️ 按标签筛选 <span class="badge" id="tagFilterBadge"></span></span>
+      <span><span style="font-size:11px;color:var(--danger);cursor:pointer;opacity:0.6" onclick="clearFilterTags()">清除</span><span style="font-size:11px;color:var(--text-muted);margin-left:8px;cursor:pointer" onclick="toggleTagFilter()">▼</span></span>
+    </div>
+    <div class="tag-filter-list" id="tagFilterList"></div>
+  </div>
+
   <div class="done-toggle" id="doneToggle">
     <label>
       <input type="checkbox" id="showDoneCheck" checked onchange="toggleShowDone()">
@@ -472,7 +560,7 @@
 <!-- 安装横幅 -->
 <div class="install-banner" id="installBanner">
   <div class="info">
-    <strong>安装待办标签</strong>
+    <strong>安装 WayneSpace</strong>
     <span>安装到桌面，离线也能用</span>
   </div>
   <button class="install-btn" id="installBtn">安装</button>
@@ -489,7 +577,7 @@ const TAG_COLORS = [
 ];
 const DEFAULT_TAGS = ['工作', '生活', '学习'];
 
-let state = { todos: [], tags: [], filter: 'all', selectedTags: [], selectedPriority: 2, showDone: true };
+let state = { todos: [], tags: [], filter: 'all', selectedTags: [], selectedPriority: 3, showDone: true, filterTags: [] };
 
 // ========== 持久化 ==========
 function loadState() {
@@ -500,6 +588,7 @@ function loadState() {
       state.todos = saved.todos || [];
       state.tags = saved.tags || [];
       state.showDone = saved.showDone !== undefined ? saved.showDone : true;
+      state.filterTags = saved.filterTags || [];
       return;
     }
   } catch(e) {}
@@ -512,7 +601,7 @@ function loadState() {
 function saveState() {
   try {
     localStorage.setItem('todoapp_data', JSON.stringify({
-      todos: state.todos, tags: state.tags, showDone: state.showDone
+      todos: state.todos, tags: state.tags, showDone: state.showDone, filterTags: state.filterTags
     }));
   } catch(e) {}
 }
@@ -587,13 +676,53 @@ function selectPriority(p) {
   });
 }
 
-function getPrioLabel(p) { return ['P0','P1','P2'][p] || 'P2'; }
-function getPrioColor(p) { return ['#e74c3c','#e67e22','#95a5a6'][p] || '#95a5a6'; }
+function getPrioLabel(p) { return ['P0','P1','P2','P3'][p] || 'P3'; }
+function getPrioColor(p) { return ['#d63031','#e17055','#6c5ce7','#b2bec3'][p] || '#b2bec3'; }
 
 // ========== 已完成切换 ==========
 function toggleShowDone() {
   state.showDone = document.getElementById('showDoneCheck').checked;
   saveState();
+  renderTodoList();
+}
+
+// ========== 标签筛选 ==========
+function toggleTagFilter() {
+  const el = document.getElementById('tagFilter');
+  el.classList.toggle('show');
+  if (el.classList.contains('show')) renderTagFilterList();
+}
+
+function toggleFilterTag(tagId) {
+  const idx = state.filterTags.indexOf(tagId);
+  if (idx > -1) state.filterTags.splice(idx, 1);
+  else state.filterTags.push(tagId);
+  saveState();
+  renderTagFilterList();
+  renderTodoList();
+}
+
+function renderTagFilterList() {
+  const el = document.getElementById('tagFilterList');
+  const badge = document.getElementById('tagFilterBadge');
+  badge.textContent = state.filterTags.length ? `${state.filterTags.length}个` : '';
+  if (!state.tags.length) {
+    el.innerHTML = '<span style="font-size:13px;color:var(--text-muted)">暂无标签</span>';
+    return;
+  }
+  el.innerHTML = state.tags.map(t => {
+    const checked = state.filterTags.includes(t.id);
+    return `<div class="tag-filter-item ${checked?'checked':''}" style="color:${t.color}" onclick="toggleFilterTag(${t.id})">
+      <span class="check-icon">${checked?'✓':''}</span>
+      ${t.name}
+    </div>`;
+  }).join('');
+}
+
+function clearFilterTags() {
+  state.filterTags = [];
+  saveState();
+  renderTagFilterList();
   renderTodoList();
 }
 
@@ -608,9 +737,9 @@ function addTodo() {
   });
   input.value = '';
   state.selectedTags = [];
-  state.selectedPriority = 2;
+  state.selectedPriority = 3;
   document.querySelectorAll('.prio-btn').forEach(b => {
-    b.classList.toggle('active', parseInt(b.dataset.prio) === 2);
+    b.classList.toggle('active', parseInt(b.dataset.prio) === 3);
   });
   saveState();
   renderAll();
@@ -690,9 +819,14 @@ function renderTodoList() {
   else if (state.filter === 'all') { if (!state.showDone) list = list.filter(t => !t.done); }
   else list = list.filter(t => t.tags.includes(state.filter));
 
+  // 多选标签筛选
+  if (state.filterTags.length) {
+    list = list.filter(t => state.filterTags.some(tagId => t.tags.includes(tagId)));
+  }
+
   list.sort((a, b) => {
     if (a.done !== b.done) return a.done ? 1 : -1;
-    return (a.priority ?? 2) - (b.priority ?? 2);
+    return (a.priority ?? 3) - (b.priority ?? 3);
   });
 
   if (!list.length) {
@@ -743,6 +877,9 @@ function renderAll() {
   // 同步已完成切换状态
   document.getElementById('showDoneCheck').checked = state.showDone;
   document.getElementById('doneToggle').style.display = state.filter === 'all' ? '' : 'none';
+  // 标签筛选面板
+  renderTagFilterList();
+  if (state.filterTags.length) document.getElementById('tagFilter').classList.add('show');
   renderTodoList();
   if (document.getElementById('tagMgr').classList.contains('show')) renderTagMgrList();
 }

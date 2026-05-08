@@ -1,11 +1,11 @@
 {
-  "name": "待办标签",
-  "short_name": "待办标签",
-  "description": "一个轻量的待办标签管理工具",
+  "name": "WayneSpace",
+  "short_name": "WayneSpace",
+  "description": "待办标签管理",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#f5f6fa",
-  "theme_color": "#5b7fff",
+  "background_color": "#f8f9fc",
+  "theme_color": "#2d3436",
   "orientation": "portrait",
   "icons": [
     {

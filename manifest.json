@@ -1,0 +1,18 @@
+{
+  "name": "待办标签",
+  "short_name": "待办标签",
+  "description": "一个轻量的待办标签管理工具",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#f5f6fa",
+  "theme_color": "#5b7fff",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

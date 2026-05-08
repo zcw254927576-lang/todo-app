@@ -200,7 +200,7 @@
   .tag-filter-item.checked {
     border-color: currentColor;
     background: currentColor;
-    color: #fff;
+    color: #fff !important;
   }
   .tag-filter-item .check-icon {
     width: 14px; height: 14px;
@@ -214,9 +214,9 @@
     transition: all 0.15s;
   }
   .tag-filter-item.checked .check-icon {
-    background: #fff;
-    border-color: #fff;
-    color: currentColor;
+    background: rgba(255,255,255,0.25);
+    border-color: transparent;
+    color: #fff;
   }
 
   /* 标签管理 */

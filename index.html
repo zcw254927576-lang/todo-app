@@ -197,10 +197,12 @@
     background: var(--card);
   }
   .tag-filter-item:active { transform: scale(0.96); }
+  .tag-filter-item {
+    --tag-color: #636e72;
+  }
   .tag-filter-item.checked {
-    border-color: currentColor;
-    background: currentColor;
-    color: #fff !important;
+    background: var(--tag-color);
+    color: #fff;
   }
   .tag-filter-item .check-icon {
     width: 14px; height: 14px;
@@ -214,9 +216,9 @@
     transition: all 0.15s;
   }
   .tag-filter-item.checked .check-icon {
-    background: rgba(255,255,255,0.25);
+    background: #fff;
     border-color: transparent;
-    color: #fff;
+    color: var(--tag-color);
   }
 
   /* 标签管理 */
@@ -703,7 +705,7 @@ function renderTagFilterList() {
   }
   el.innerHTML = state.tags.map(t => {
     const checked = state.filterTags.includes(t.id);
-    return `<div class="tag-filter-item ${checked?'checked':''}" style="color:${t.color}" onclick="toggleFilterTag(${t.id})">
+    return `<div class="tag-filter-item ${checked?'checked':''}" style="--tag-color:${t.color};${checked?'':'color:'+t.color}" onclick="toggleFilterTag(${t.id})">
       <span class="check-icon">${checked?'✓':''}</span>
       ${t.name}
     </div>`;
